@@ -1,0 +1,2 @@
+# Traductor-de-Textos-en-Espanol-al-Sistema-Braille
+“Traductor de textos en español al sistema Braille” es un producto que ofrece la alternativa para brindar accesibilidad, información y educación a usuarios con alguna discapacidad visual. Es un dispositivo que traduce textos de documentos al sistema de lectura Braille. Por medio e puntos que suben o bajan, el Traductor de textos en español al sistema Braille permitirá al usuario leer casi cualquier texto.
