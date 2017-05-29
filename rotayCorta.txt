@@ -1,0 +1,20 @@
+//rotayCorta.h archivo
+#ifndef ROTAYCORTA_H
+#define ROTAYCORTA_H
+
+struct PairPoint {
+  cv::Point pt1;
+  cv::Point pt2;
+
+  PairPoint(cv::Point pt1, cv::Point pt2) : pt1(pt1), pt2(pt2) {}
+};
+
+bool filterLines(const std::vector<PairPoint>, vector<PairPoint>);
+void filterPoint(std::vector<cv::Point>);
+bool interactionPoint(const PairPoint, const PairPoint, cv::Point);
+std::vector<cv::Point> getChangePoints(const vector<cv::Point>);
+cv::Mat getChangePicture(cv::Mat, int, int, cv::Mat);
+void sortPoints(std::vector<Point>);
+int rotaCorta();
+
+#endif
