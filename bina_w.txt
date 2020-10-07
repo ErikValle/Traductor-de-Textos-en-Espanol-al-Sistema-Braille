@@ -1,9 +1,0 @@
-//bina_w.h archivo
-#ifndef BINA_W_H
-#define BINA_W_H
-
-double calcLocalStats(cv::Mat, cv::Mat, cv::Mat, int, int);
-void NiblackSauvolaWolfJolion (cv::Mat, cv::Mat, int, int, double, double);
-int binarizar ();
-
-#endif
