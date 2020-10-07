@@ -1,52 +1,55 @@
-#####################################
-cmake_minimum_required (VERSION 2.8) 
-project (rasp)
+# %Tag(FULLTEXT)%
+cmake_minimum_required(VERSION 2.8.3)
+project(beginner_tutorials)
 set(raspicam_DIR "/usr/local/lib/cmake")
 find_package(PkgConfig)
-add_definitions(-std=c++11)
+
 pkg_check_modules(GTKMM gtkmm-2.0)
 pkg_check_modules(GTKMM glibmm-2.4)
 
-include_directories (/home/pi/tesseract)
-include_directories(./leptonica-1.74.1/src)
-include_directories(./leptonica-1.74.1)
 include_directories(/usr/local/include)
 INCLUDE_DIRECTORIES(${GTKMM_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${GLIBMM_INCLUDE_DIRS})
 
-find_library(ESTOOLS_LIBRARY estools /home/pi/speech_tools/lib)
-find_library(ESTSTRING_LIBRARY eststring /home/pi/speech_tools/lib)
-find_library(ESTBASE_LIBRARY estbase /home/pi/speech_tools/lib)
-find_library(Festival_LIBRARIES Festival /home/pi/festival/src/lib)
-find_library(wiringPi_LIBRARIES wiringPi /usr/local/lib)
+## Find catkin and any catkin packages
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs genmsg)
+find_package(OpenCV)
+find_package(raspicam REQUIRED)
 
 LINK_DIRECTORIES(${GTKMM_LIBRARY_DIRS})
 LINK_DIRECTORIES(${GLIBMM_LIBRARY_DIRS})
 
-set(EST_LIBRARIES
-	${ESTOOLS_LIBRARY}
-	${ESTSTRING_LIBRARY}
-	${ESTBASE_LIBRARY}
-)
+## Declare a catkin package
+catkin_package()
 
-find_path(Festival_INCLUDE_DIR festival.h /home/pi/festival/src/include)
-find_path(EST_INCLUDE_DIR EST.h /home/pi/speech_tools/include)
+## Build talker and listener
+include_directories(include ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 
-
-find_package(raspicam REQUIRED)
-find_package(OpenCV)
-
-INCLUDE_DIRECTORIES(include	${EST_INCLUDE_DIR}
-				${Festival_INCLUDE_DIR})
-
-
-
-link_directories(/home/pi/tesseract)
 IF  ( OpenCV_FOUND AND raspicam_CV_FOUND)
 MESSAGE(STATUS "COMPILING OPENCV TESTS")
-add_executable (rasp main.cpp)  
-target_link_libraries (rasp ${raspicam_CV_LIBS} wiringPi lept tesseract ${EST_LIBRARIES} ${Festival_LIBRARIES} ${GLIBMM_LIBRARIES} ${GTKMM_LIBRARIES})
 ELSE()
 MESSAGE(FATAL_ERROR "OPENCV NOT FOUND IN YOUR SYSTEM")
 ENDIF()
-#####################################
+
+add_executable(principal src/principal.cpp)
+target_link_libraries(principal ${catkin_LIBRARIES} wiringPi)
+add_dependencies(principal beginner_tutorials_generate_messages_cpp)
+
+add_executable(status src/status.cpp)
+target_link_libraries(status ${catkin_LIBRARIES})
+add_dependencies(status beginner_tutorials_generate_messages_cpp)
+
+add_executable(botones src/botones.cpp)
+target_link_libraries(botones ${catkin_LIBRARIES} wiringPi)
+add_dependencies(botones beginner_tutorials_generate_messages_cpp)
+
+##add_executable(matriz src/matriz.cpp)
+##target_link_libraries(matriz ${catkin_LIBRARIES} wiringPi ${GLIBMM_LIBRARIES} ${GTKMM_LIBRARIES})
+##add_dependencies(matriz beginner_tutorials_generate_messages_cpp)
+add_definitions(-std=c++11)
+add_executable(vision src/vision.cpp)
+target_link_libraries(vision ${catkin_LIBRARIES} ${raspicam_CV_LIBS} ${OpenCV_LIBS})
+add_dependencies(vision beginner_tutorials_generate_messages_cpp)
+
+
+# %EndTag(FULLTEXT)%
