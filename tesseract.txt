@@ -1,6 +1,0 @@
-//detectRect.h archivo
-#ifndef TESSERACT_H
-#define TESSERACT_H
-int imgatxt();
-
-#endif
